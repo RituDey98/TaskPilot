@@ -2,7 +2,7 @@ import express from "express";
 import apiRoutes from "./routes/index.route";
 import { dbUtils } from "./utils/db.utils";
 
-const PORT = 3000;
+const PORT = process.env.PORT || 80;
 
 const app = express();
 
