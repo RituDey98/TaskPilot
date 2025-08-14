@@ -1,6 +1,7 @@
 import express from "express";
 import apiRoutes from "./routes/index.route";
 import { dbUtils } from "./utils/db.utils";
+import "./models/association";
 
 const PORT = process.env.PORT || 80;
 

@@ -3,6 +3,8 @@ import expressAsyncHandler from "express-async-handler";
 
 const data = ["read"];
 
+//TODO: CREATE TASK
+
 const create = expressAsyncHandler(async (req: Request, res: Response) => {
     const name = req.body.name;
     data.push(name);
@@ -10,6 +12,16 @@ const create = expressAsyncHandler(async (req: Request, res: Response) => {
         message: "Added",
     });
 });
+
+//TODO: GET ALL TASK
+const list = expressAsyncHandler(async (req: Request, res: Response) => {
+    res.status(200).json({
+        data: data,
+        message: "Fetched",
+    });
+});
+
+//TODO: DELETE TASK BY ID
 const remove = expressAsyncHandler(async (req: Request, res: Response) => {
     const { params } = req;
     const id = params.id;
@@ -19,12 +31,10 @@ const remove = expressAsyncHandler(async (req: Request, res: Response) => {
         message: "Removed",
     });
 });
-const list = expressAsyncHandler(async (req: Request, res: Response) => {
-    res.status(200).json({
-        data: data,
-        message: "Fetched",
-    });
-});
+
+//TODO: GET TASK BY ID
+
+//TODO: UPDATE TASK BY ID
 
 export const controller = {
     create,
