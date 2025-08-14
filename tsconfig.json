@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "target": "es2021",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "build",
+        "strictNullChecks": true
+    },
+    "lib": ["es2015"]
+}
