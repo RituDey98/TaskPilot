@@ -1,34 +1,46 @@
 import { Request, Response } from "express";
 import expressAsyncHandler from "express-async-handler";
-
-const data = ["read"];
+import { Task } from "../models/task.model";
 
 //TODO: CREATE TASK
 
 const create = expressAsyncHandler(async (req: Request, res: Response) => {
-    const name = req.body.name;
-    data.push(name);
+    const { body } = req;
+    const { description }: { description: string } = body;
+
+    const task = Task.build({ description });
+
+    await task.save();
+
     res.status(201).json({
-        message: "Added",
+        data: task.id,
+        message: "Task created",
     });
 });
 
 //TODO: GET ALL TASK
 const list = expressAsyncHandler(async (req: Request, res: Response) => {
+    const tasks = await Task.findAll();
+    console.log(tasks);
     res.status(200).json({
-        data: data,
-        message: "Fetched",
+        data: tasks,
+        message: " Fetched all tasks",
     });
 });
 
 //TODO: DELETE TASK BY ID
 const remove = expressAsyncHandler(async (req: Request, res: Response) => {
     const { params } = req;
-    const id = params.id;
-    const idNum: number = +id;
-    data.splice(idNum, 1);
+
+    const task = await Task.findByPk(params.id);
+
+    if (!task) {
+        console.log("No such task found");
+    } else {
+        await task.destroy();
+    }
     res.status(200).json({
-        message: "Removed",
+        message: "task" + { task } + "Deleted",
     });
 });
 
@@ -38,6 +50,6 @@ const remove = expressAsyncHandler(async (req: Request, res: Response) => {
 
 export const controller = {
     create,
-    remove,
     list,
+    remove,
 };
