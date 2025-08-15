@@ -5,6 +5,10 @@ const router = Router();
 
 router.route("/").post(controller.create).get(controller.list);
 
-router.route("/:id").delete(controller.remove).get(controller.listTask);
+router
+    .route("/:id")
+    .delete(controller.remove)
+    .get(controller.listTask)
+    .patch(controller.update);
 
 export default router;

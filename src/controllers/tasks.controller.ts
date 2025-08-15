@@ -63,10 +63,36 @@ const listTask = expressAsyncHandler(async (req: Request, res: Response) => {
 });
 
 //TODO: UPDATE TASK BY ID
+const update = expressAsyncHandler(async (req: Request, res: Response) => {
+    const { params, body } = req;
+    const { description }: { description: string } = body;
+
+    try {
+        const [rowsAffected, updatedTask] = await Task.update(
+            { description },
+            { where: { id: params.id }, returning: true }
+        );
+
+        if (rowsAffected > 0) {
+            console.log("Successfully updated Task");
+            if (updatedTask && updatedTask.length > 0) {
+                res.status(200).json({
+                    data: updatedTask,
+                    message: "Updated Task",
+                });
+            }
+        } else {
+            console.log("No user found");
+        }
+    } catch (error) {
+        console.error("Error updating Task", error);
+    }
+});
 
 export const controller = {
     create,
     list,
     remove,
     listTask,
+    update,
 };
