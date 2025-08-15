@@ -45,6 +45,22 @@ const remove = expressAsyncHandler(async (req: Request, res: Response) => {
 });
 
 //TODO: GET TASK BY ID
+const listTask = expressAsyncHandler(async (req: Request, res: Response) => {
+    const { params } = req;
+
+    const task = await Task.findByPk(params.id);
+
+    if (!task) {
+        res.status(404).json({
+            message: "Task not found",
+        });
+    } else {
+        res.status(200).json({
+            data: task,
+            message: "Task fetched",
+        });
+    }
+});
 
 //TODO: UPDATE TASK BY ID
 
@@ -52,4 +68,5 @@ export const controller = {
     create,
     list,
     remove,
+    listTask,
 };
