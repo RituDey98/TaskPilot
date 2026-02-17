@@ -12,6 +12,7 @@ export class Task extends Model<
     InferCreationAttributes<Task>
 > {
     declare id: CreationOptional<string>;
+    declare name: string;
     declare description: string;
 }
 
@@ -22,13 +23,17 @@ Task.init(
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4,
         },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         description: {
             type: DataTypes.STRING,
             allowNull: false,
         },
     },
     {
-        paranoid: false,
+        paranoid: true,
         timestamps: true,
         sequelize: dbUtils.sequelize,
         tableName: "tasks",

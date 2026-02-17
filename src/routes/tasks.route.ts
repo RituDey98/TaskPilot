@@ -3,12 +3,16 @@ import { controller } from "../controllers/tasks.controller";
 
 const router = Router();
 
-router.route("/").post(controller.create).get(controller.list);
+router
+    .route("/")
+    .post(controller.create)
+    .get(controller.list)
+    .delete(controller.removeAll);
 
 router
     .route("/:id")
-    .delete(controller.remove)
     .get(controller.listTask)
-    .patch(controller.update);
+    .put(controller.update)
+    .delete(controller.remove);
 
 export default router;
